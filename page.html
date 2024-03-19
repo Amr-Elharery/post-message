@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home</title>
+  </head>
+  <body>
+    <h2>Child</h2>
+    <div>
+      <input type="text" id="message" placeholder="Type to send ro parent" />
+      <button id="sendMessage">Send</button>
+    </div>
+
+    <br />
+    <div>
+      Data from parent: <b><span id="data"></span></b>
+    </div>
+
+    <script>
+      const messageInput = document.getElementById("message");
+
+      const subBtn = document.getElementById("sendMessage");
+
+      const data = document.getElementById("data");
+
+      // Receive
+      window.addEventListener("message", (e) => {
+        data.innerHTML = e.data;
+      });
+
+      // Send
+      subBtn.addEventListener("click", () => {
+        window.parent.postMessage(messageInput.value, "*");
+      });
+    </script>
+  </body>
+</html>

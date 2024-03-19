@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home</title>
+  </head>
+  <body>
+    <h1>Parent</h1>
+    <div>
+      <input type="text" id="message" placeholder="Type to send to child" />
+    </div>
+    <br />
+    <div>
+      Data from child: <b><span id="data"></span></b>
+    </div>
+    <br />
+    <iframe src="page.html" id="iframe"></iframe>
+
+    <script>
+      const iframe = document.getElementById("iframe");
+      const messageInput = document.getElementById("message");
+      const data = document.getElementById("data");
+
+      // Send
+      messageInput.addEventListener("keyup", () => {
+        iframe.contentWindow.postMessage(messageInput.value, "*");
+      });
+
+      // Receive
+      window.addEventListener("message", (e) => {
+        data.innerHTML = e.data;
+        console.log(e.data);
+      });
+    </script>
+  </body>
+</html>
